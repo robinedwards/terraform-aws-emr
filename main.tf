@@ -23,6 +23,12 @@ locals {
 # Cluster
 ################################################################################
 
+
+resource "terraform_data" "configurations_json_replacement" {
+  input = md5(var.configurations_json)
+}
+
+
 resource "aws_emr_cluster" "this" {
   count = var.create ? 1 : 0
 
@@ -335,6 +341,7 @@ resource "aws_emr_cluster" "this" {
       placement_group_config,
       configurations_json
     ]
+    replace_triggered_by = [terraform_data.configurations_json_replacement]
   }
 }
 
