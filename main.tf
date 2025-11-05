@@ -332,7 +332,8 @@ resource "aws_emr_cluster" "this" {
     ignore_changes = [
       kerberos_attributes, # Since the API does not return the actual values for Kerberos configurations
       step,                # Ignore outside changes to running cluster steps
-      placement_group_config
+      placement_group_config,
+      configurations_json
     ]
   }
 }
