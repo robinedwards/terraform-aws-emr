@@ -339,7 +339,8 @@ resource "aws_emr_cluster" "this" {
       kerberos_attributes, # Since the API does not return the actual values for Kerberos configurations
       step,                # Ignore outside changes to running cluster steps
       placement_group_config,
-      configurations_json
+      configurations_json,
+      os_release_label # Set as null, we get returned a value on next plan which causes drift
     ]
     replace_triggered_by = [terraform_data.configurations_json_replacement]
   }
